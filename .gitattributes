@@ -1,0 +1,6 @@
+* text=auto eol=crlf
+
+.wpilib/wpilib_preferences.json eol=lf
+gradlew eol=lf
+src/main/deploy/example.txt eol=lf
+src/**/*.java eol=lf
