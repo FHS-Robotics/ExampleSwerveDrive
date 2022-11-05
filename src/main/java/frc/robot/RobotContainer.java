@@ -1,48 +1,65 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.commands.DebugCommand;
+import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.subsystems.SwerveDriveSubsystem;
+import frc.robot.utils.AllFalconSwerveModule;
+
+import static frc.robot.Constants.*;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
 
-/**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and button mappings) should be declared here.
- */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  public static final XboxController controller = new XboxController(0);
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  public static final WPI_TalonFX[] driveMotors = {
+    talonDriveMotor(1),
+    talonDriveMotor(0),
+    talonDriveMotor(3),
+    talonDriveMotor(2)
+  };
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
-    // Configure the button bindings
-    configureButtonBindings();
+  public static final WPI_TalonFX[] steerMotors = {
+    talonSteerMotor(5),
+    talonSteerMotor(4),
+    talonSteerMotor(7),
+    talonSteerMotor(6)
+  };
+
+  public static final SwerveDriveSubsystem swerveDriveSubsystem = new SwerveDriveSubsystem(
+    new AllFalconSwerveModule[] {
+      new AllFalconSwerveModule(driveMotors[0], steerMotors[0]),
+      new AllFalconSwerveModule(driveMotors[1], steerMotors[1]),
+      new AllFalconSwerveModule(driveMotors[2], steerMotors[2]),
+      new AllFalconSwerveModule(driveMotors[3], steerMotors[3]),
+    }
+  );
+
+  public static final TeleopDriveCommand teleopDriveCommand = new TeleopDriveCommand(swerveDriveSubsystem);
+  public static final DebugCommand debugCommand = new DebugCommand();
+
+  private RobotContainer() {}
+
+  private static WPI_TalonFX talonSteerMotor(int port) {
+    WPI_TalonFX motor = new WPI_TalonFX(port);
+    motor.setInverted(false);
+    motor.setSensorPhase(false);
+    motor.config_kP(0, kTalonSteer.kP, Misc.kConfigTimeout);
+    motor.config_kI(0, kTalonSteer.kI, Misc.kConfigTimeout);
+    motor.config_kD(0, kTalonSteer.kD, Misc.kConfigTimeout);
+    motor.setSelectedSensorPosition(0, 0, Misc.kConfigTimeout);
+    return motor;
   }
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
-  private void configureButtonBindings() {}
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+  private static WPI_TalonFX talonDriveMotor(int port) {
+    WPI_TalonFX motor = new WPI_TalonFX(port);
+    motor.setInverted(false);
+    motor.setSensorPhase(false);
+    motor.config_kP(0, kTalonDrive.kP, Misc.kConfigTimeout);
+    motor.config_kI(0, kTalonDrive.kI, Misc.kConfigTimeout);
+    motor.config_kD(0, kTalonDrive.kD, Misc.kConfigTimeout);
+    return motor;
   }
 }
