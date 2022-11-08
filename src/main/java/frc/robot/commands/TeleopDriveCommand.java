@@ -21,10 +21,6 @@ public class TeleopDriveCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if (mController.getBButtonPressed()) {
-      mSwerveDrive.zeroSteering();
-    }
-
     // Note: getLeftY() is inverted because pushing up on
     // the stick gives negative values
     double forward = -mController.getLeftY();

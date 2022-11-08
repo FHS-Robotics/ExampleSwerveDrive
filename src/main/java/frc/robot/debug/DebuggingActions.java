@@ -2,12 +2,15 @@ package frc.robot.debug;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.SwerveDriveSubsystem;
 
 public class DebuggingActions {
   private XboxController mController;
+  private SwerveDriveSubsystem mSwerveDrive;
 
-  public DebuggingActions(XboxController controller) {
+  public DebuggingActions(XboxController controller, SwerveDriveSubsystem swerveDrive) {
     mController = controller;
+    mSwerveDrive = swerveDrive;
   }
 
   /**
@@ -16,6 +19,10 @@ public class DebuggingActions {
    * corresponding buttons.
    */
   public void runActions() {
+    if (mController.getBButtonPressed()) {
+      mSwerveDrive.zeroSteering();
+    }
+
     if (mController.getXButtonPressed()) {
       System.out.println("=== START DEBUG DUMP ===");
       for (var debugged : DebugValues.getDebuggedValues().entrySet()) {

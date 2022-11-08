@@ -38,7 +38,7 @@ public class RobotContainer {
   );
 
   public static final TeleopDriveCommand teleopDriveCommand = new TeleopDriveCommand(controller, swerveDriveSubsystem);
-  public static final DebuggingActions debuggingActions = new DebuggingActions(controller);
+  public static final DebuggingActions debuggingActions = new DebuggingActions(controller, swerveDriveSubsystem);
 
   private RobotContainer() {}
 
