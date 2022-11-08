@@ -66,9 +66,9 @@ public class SwerveDriveSubsystem extends SubsystemBase {
 			Math.abs(strafe) > 0.05 || Math.abs(rotation) > 0.05;
 
 		if (shouldChangeTargetAngle) {
-			DebugValues.debug("Swerve Angles", Arrays.toString(angles));
+			DebugValues.set("Swerve Angles", Arrays.toString(angles));
 		}
-		DebugValues.debug("Swerve Speeds", Arrays.toString(speeds));
+		DebugValues.set("Swerve Speeds", Arrays.toString(speeds));
 
 		for (int i = 0; i < 4; i++) {
 			if (shouldChangeTargetAngle) {
@@ -89,11 +89,11 @@ public class SwerveDriveSubsystem extends SubsystemBase {
 			}
 		}
 
-		DebugValues.debug("All Swerves at Targets", "" + allWithinSteerThreshold);
-		DebugValues.debug("Swerve Module 0 (FR)", mSwerveModules[0].toString());
-		DebugValues.debug("Swerve Module 1 (FL)", mSwerveModules[1].toString());
-		DebugValues.debug("Swerve Module 2 (BL)", mSwerveModules[2].toString());
-		DebugValues.debug("Swerve Module 3 (BR)", mSwerveModules[3].toString());
+		DebugValues.set("All Swerves at Targets", "" + allWithinSteerThreshold);
+		DebugValues.set("Swerve Module 0 (FR)", mSwerveModules[0].toString());
+		DebugValues.set("Swerve Module 1 (FL)", mSwerveModules[1].toString());
+		DebugValues.set("Swerve Module 2 (BL)", mSwerveModules[2].toString());
+		DebugValues.set("Swerve Module 3 (BR)", mSwerveModules[3].toString());
 
 		if (allWithinSteerThreshold) {
 			for (var module : mSwerveModules) {
