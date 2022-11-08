@@ -30,6 +30,12 @@ public class SwerveDriveSubsystem extends SubsystemBase {
     mSwerveModules = swerveModules;
   }
 
+	public void zeroSteering() {
+		for (var module : mSwerveModules) {
+			module.zeroSteering();
+		}
+	}
+
   public void holonomicDrive(double forward, double strafe, double rotation) {
     double a = strafe - rotation * (Misc.kWheelBase / Misc.kTrackWidth);
 		double b = strafe + rotation * (Misc.kWheelBase / Misc.kTrackWidth);

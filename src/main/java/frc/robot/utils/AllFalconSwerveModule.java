@@ -37,6 +37,11 @@ public class AllFalconSwerveModule implements ISwerveModule {
   }
 
   @Override
+  public void zeroSteering() {
+    mSteerMotor.setSelectedSensorPosition(0, 0, Misc.kConfigTimeout);
+  }
+
+  @Override
   public boolean steerModule() {
     mSteerMotor.set(
       TalonFXControlMode.Position,

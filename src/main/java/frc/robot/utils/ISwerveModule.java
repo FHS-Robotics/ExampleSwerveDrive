@@ -16,6 +16,11 @@ public interface ISwerveModule {
   void setTargetSpeed(double speed);
 
   /**
+   * Set the module's steering position to zero.
+   */
+  void zeroSteering();
+
+  /**
    * Runs the steering motor and returns wether the target
    * angle has been met.
    * 
