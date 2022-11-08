@@ -1,7 +1,7 @@
 package frc.robot;
 
-import frc.robot.commands.DebugCommand;
 import frc.robot.commands.TeleopDriveCommand;
+import frc.robot.debug.DebuggingActions;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 import frc.robot.utils.AllFalconSwerveModule;
 
@@ -38,7 +38,7 @@ public class RobotContainer {
   );
 
   public static final TeleopDriveCommand teleopDriveCommand = new TeleopDriveCommand(controller, swerveDriveSubsystem);
-  public static final DebugCommand debugCommand = new DebugCommand(controller);
+  public static final DebuggingActions debuggingActions = new DebuggingActions(controller);
 
   private RobotContainer() {}
 

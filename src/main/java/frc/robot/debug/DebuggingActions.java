@@ -1,24 +1,21 @@
-package frc.robot.commands;
+package frc.robot.debug;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.utils.DebugValues;
 
-public class DebugCommand extends CommandBase {
+public class DebuggingActions {
   private XboxController mController;
 
-  public DebugCommand(XboxController controller) {
+  public DebuggingActions(XboxController controller) {
     mController = controller;
   }
 
-  @Override
-  public void initialize() {
-    System.out.println("Debug init");
-  }
-
-  @Override
-  public void execute() {
+  /**
+   * Runs debugging actions like performing a debug dump or
+   * zeroing motors when the controller has just pressed the
+   * corresponding buttons.
+   */
+  public void runActions() {
     if (mController.getXButtonPressed()) {
       System.out.println("=== START DEBUG DUMP ===");
       for (var debugged : DebugValues.getDebuggedValues().entrySet()) {
@@ -30,15 +27,5 @@ public class DebugCommand extends CommandBase {
     for (var debugged : DebugValues.getDebuggedValues().entrySet()) {
       SmartDashboard.putString("debug/" + debugged.getKey(), debugged.getValue());
     }
-  }
-
-  @Override
-  public boolean runsWhenDisabled() {
-    return true;
-  }
-
-  @Override
-  public boolean isFinished() {
-    return false;
   }
 }

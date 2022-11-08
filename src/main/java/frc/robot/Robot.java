@@ -2,15 +2,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.debug.DebugValues;
 
 public class Robot extends TimedRobot {
   @Override
-  public void robotInit() {
-    RobotContainer.debugCommand.schedule();
-  }
+  public void robotInit() {}
 
   @Override
   public void robotPeriodic() {
+    RobotContainer.debuggingActions.runActions();
     CommandScheduler.getInstance().run();
   }
 
@@ -30,7 +30,9 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {}
 
   @Override
-  public void autonomousExit() {}
+  public void autonomousExit() {
+    DebugValues.clear();
+  }
 
   @Override
   public void teleopInit() {
@@ -43,19 +45,21 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopExit() {
     RobotContainer.teleopDriveCommand.cancel();
+    DebugValues.clear();
   }
 
   @Override
   public void testInit() {
     CommandScheduler.getInstance().cancelAll();
-    RobotContainer.debugCommand.schedule();
   }
   
   @Override
   public void testPeriodic() {}
 
   @Override
-  public void testExit() {}
+  public void testExit() {
+    DebugValues.clear();
+  }
 
   @Override
   public void simulationInit() {}

@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import frc.robot.utils.DebugValues;
+import frc.robot.debug.DebugValues;
 import frc.robot.utils.ISwerveModule;
 
 import static frc.robot.Constants.*;
@@ -72,9 +72,9 @@ public class SwerveDriveSubsystem extends SubsystemBase {
 			Math.abs(strafe) > 0.05 || Math.abs(rotation) > 0.05;
 
 		if (shouldChangeTargetAngle) {
-			DebugValues.set("Swerve Angles", Arrays.toString(angles));
+			DebugValues.put("Drive: Angles", Arrays.toString(angles));
 		}
-		DebugValues.set("Swerve Speeds", Arrays.toString(speeds));
+		DebugValues.put("Drive: Speeds", Arrays.toString(speeds));
 
 		for (int i = 0; i < 4; i++) {
 			if (shouldChangeTargetAngle) {
@@ -95,11 +95,11 @@ public class SwerveDriveSubsystem extends SubsystemBase {
 			}
 		}
 
-		DebugValues.set("All Swerves at Targets", "" + allWithinSteerThreshold);
-		DebugValues.set("Swerve Module 0 (FR)", mSwerveModules[0].toString());
-		DebugValues.set("Swerve Module 1 (FL)", mSwerveModules[1].toString());
-		DebugValues.set("Swerve Module 2 (BL)", mSwerveModules[2].toString());
-		DebugValues.set("Swerve Module 3 (BR)", mSwerveModules[3].toString());
+		DebugValues.put("Periodic: Swerves at Targets", "" + allWithinSteerThreshold);
+		DebugValues.put("Periodic: Swerve 0 (FR)", mSwerveModules[0].toString());
+		DebugValues.put("Periodic: Swerve 1 (FL)", mSwerveModules[1].toString());
+		DebugValues.put("Periodic: Swerve 2 (BL)", mSwerveModules[2].toString());
+		DebugValues.put("Periodic: Swerve 3 (BR)", mSwerveModules[3].toString());
 
 		if (allWithinSteerThreshold) {
 			for (var module : mSwerveModules) {
