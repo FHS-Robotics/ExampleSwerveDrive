@@ -1,9 +1,10 @@
 package frc.robot.debug;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.SwerveDriveSubsystem;
+
+import static frc.robot.utils.Utils.*;
 
 public class DebuggingActions {
   private XboxController mController;
@@ -22,12 +23,9 @@ public class DebuggingActions {
   public void runActions() {
     if (mController.getBButtonPressed()) {
       mSwerveDrive.zeroSteering();
-
-      mController.setRumble(RumbleType.kLeftRumble, 0.75);
-      mController.setRumble(RumbleType.kRightRumble, 0.75);
+      rumbleController(true);
     } else if (mController.getBButtonReleased()) {
-      mController.setRumble(RumbleType.kLeftRumble, 0);
-      mController.setRumble(RumbleType.kRightRumble, 0);
+      rumbleController(false);
     }
 
     if (mController.getXButtonPressed()) {
@@ -36,12 +34,9 @@ public class DebuggingActions {
         System.out.println(debugged.getKey() + ": " + debugged.getValue());
       }
       System.out.println("===  END DEBUG DUMP  ===");
-
-      mController.setRumble(RumbleType.kLeftRumble, 0.75);
-      mController.setRumble(RumbleType.kRightRumble, 0.75);
+      rumbleController(true);
     } else if (mController.getXButtonReleased()) {
-      mController.setRumble(RumbleType.kLeftRumble, 0);
-      mController.setRumble(RumbleType.kRightRumble, 0);
+      rumbleController(false);
     }
 
     for (var debugged : DebugValues.getDebuggedValues().entrySet()) {
