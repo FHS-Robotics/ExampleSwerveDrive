@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.util.Units;
+import frc.robot.utils.MotorConfig;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -12,15 +13,34 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
   public static SteerProps kTalonSteer = new SteerProps(
-    0.05, 0, 0, 0, // PIDF
-    2048,          // Encoder Resolution
-    7.85 / 1,      // Gear Ratio
-    0.05 * 360     // Steer Error Threshold
+    new MotorConfig(
+      0.05, 0, 0, 0, // PIDF
+      0,             // Integral Zone
+      0,             // Allowable Error (initialized below)
+      0,             // Max Integral Accumulator
+      0.5,           // Peak Output
+      1              // Loop Period (ms)
+    ),
+    2048,            // Encoder Resolution
+    7.85 / 1,        // Gear Ratio
+    0.05 * 360       // Steer Error Threshold
   );
+  {
+    final double errorDegrees = 5;
+    final double degToCount = kTalonSteer.kCountsPerDegree;
+    kTalonSteer.kMotorConfig.allowableClosedloopError = errorDegrees * degToCount;
+  }
   public static DriveProps kTalonDrive = new DriveProps(
-    0, 0, 0, 0.5, // PIDF
-    2048,         // Encoder Resolution
-    7.85 / 1,     // Gear Ratio
+    new MotorConfig(
+      0, 0, 0, 0.5, // PIDF
+      0,            // Integral Zone
+      0,            // Allowable Error
+      0,            // Max Integral Accumulator
+      0.5,          // Peak Output
+      1             // Loop Period (ms)
+    ),
+    2048,           // Encoder Resolution
+    7.85 / 1,       // Gear Ratio
     Units.inchesToMeters(4) * Math.PI // Wheel Circumference
   );
 
@@ -39,10 +59,7 @@ public final class Constants {
   }
 
   public static final class SteerProps {
-    public final double kP;
-    public final double kI;
-    public final double kD;
-    public final double kF;
+    public final MotorConfig kMotorConfig;
 
     public final double kEncoderResolution;
     public final double kGearRatio;
@@ -52,14 +69,11 @@ public final class Constants {
     public final double kErrorThreshold;
 
     public SteerProps(
-      double kP, double kI, double kD, double kF,
+      MotorConfig kMotorConfig,
       double kEncoderResolution, double kGearRatio,
       double kErrorThreshold
     ) {
-      this.kP = kP;
-      this.kI = kI;
-      this.kD = kD;
-      this.kF = kF;
+      this.kMotorConfig = kMotorConfig;
       this.kEncoderResolution = kEncoderResolution;
       this.kGearRatio = kGearRatio;
       this.kCountsPerDegree = kEncoderResolution / 360 * kGearRatio;
@@ -68,10 +82,7 @@ public final class Constants {
   }
 
   public static final class DriveProps {
-    public final double kP;
-    public final double kI;
-    public final double kD;
-    public final double kF;
+    public final MotorConfig kMotorConfig;
 
     public final double kEncoderResolution;
     public final double kGearRatio;
@@ -80,13 +91,10 @@ public final class Constants {
     public final double kCountsPerMeter;
 
     public DriveProps(
-      double kP, double kI, double kD, double kF,
+      MotorConfig kMotorConfig,
       double kEncoderResolution, double kGearRatio, double kWheelCircumference
     ) {
-      this.kP = kP;
-      this.kI = kI;
-      this.kD = kD;
-      this.kF = kF;
+      this.kMotorConfig = kMotorConfig;
       this.kEncoderResolution = kEncoderResolution;
       this.kGearRatio = kGearRatio;
       this.kWheelCircumference = kWheelCircumference;

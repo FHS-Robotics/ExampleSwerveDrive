@@ -13,7 +13,7 @@ public class DebuggingActions {
   private XboxController mController;
   private SwerveDriveSubsystem mSwerveDrive;
 
-  private double mCurrentSteerP = kTalonDrive.kP;
+  private double mCurrentSteerP = kTalonDrive.kMotorConfig.kP;
 
   private Timer mButtonHeldTimer = new Timer();
 
