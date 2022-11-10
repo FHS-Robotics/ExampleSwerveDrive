@@ -98,10 +98,10 @@ public class AllFalconSwerveModule implements ISwerveModule {
    * to a TalonFX driving motor.
    *
    * @param speed in meters per second
-   * @return target speed in raw units
+   * @return target speed in raw units per 100ms
    */
   private static int metersPerSecToRaw(double speed) {
-    return (int) Math.round(speed * kTalonDrive.kCountsPerMeter);
+    return (int) Math.round(speed * kTalonDrive.kCountsPerMeter * 0.1);
   }
 
   @Override
