@@ -26,7 +26,7 @@ public final class Constants {
     0.05 * 360       // Steer Error Threshold
   );
   {
-    final double errorDegrees = 5;
+    final double errorDegrees = 0.5;
     final double degToCount = kTalonSteer.kCountsPerDegree;
     kTalonSteer.kMotorConfig.allowableClosedloopError = errorDegrees * degToCount;
   }

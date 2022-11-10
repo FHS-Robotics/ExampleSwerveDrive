@@ -7,6 +7,7 @@ import frc.robot.utils.AllFalconSwerveModule;
 
 import static frc.robot.Constants.*;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -46,6 +47,7 @@ public class RobotContainer {
     WPI_TalonFX motor = new WPI_TalonFX(port);
     motor.setInverted(false);
     motor.setSensorPhase(false);
+    motor.setNeutralMode(NeutralMode.Coast);
     motor.configureSlot(
       kTalonSteer.kMotorConfig.toCtreSlotConfiguration(),
       0, Misc.kConfigTimeout
@@ -58,6 +60,7 @@ public class RobotContainer {
     WPI_TalonFX motor = new WPI_TalonFX(port);
     motor.setInverted(false);
     motor.setSensorPhase(false);
+    motor.setNeutralMode(NeutralMode.Brake);
     motor.configureSlot(
       kTalonDrive.kMotorConfig.toCtreSlotConfiguration(),
       0, Misc.kConfigTimeout
