@@ -12,15 +12,15 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
   public static SteerProps kTalonSteer = new SteerProps(
-    0.05, 0, 0, // PID
-    2048,       // Encoder Resolution
-    7.85 / 1,   // Gear Ratio
-    0.05 * 360  // Steer Error Threshold
+    0.05, 0, 0, 0, // PIDF
+    2048,          // Encoder Resolution
+    7.85 / 1,      // Gear Ratio
+    0.05 * 360     // Steer Error Threshold
   );
   public static DriveProps kTalonDrive = new DriveProps(
-    0.1, 0, 0,  // PID
-    2048,       // Encoder Resolution
-    7.85 / 1,   // Gear Ratio
+    0, 0, 0, 0.5, // PIDF
+    2048,         // Encoder Resolution
+    7.85 / 1,     // Gear Ratio
     Units.inchesToMeters(4) * Math.PI // Wheel Circumference
   );
 
@@ -42,6 +42,7 @@ public final class Constants {
     public final double kP;
     public final double kI;
     public final double kD;
+    public final double kF;
 
     public final double kEncoderResolution;
     public final double kGearRatio;
@@ -50,12 +51,17 @@ public final class Constants {
     /** Maximum error (in degrees) the swerve module can be off by. */
     public final double kErrorThreshold;
 
-    public SteerProps(double kP, double kI, double kD, double kEncoderResolution, double kGearRatio, double kErrorThreshold) {
-      this.kP = kP; 
-      this.kI = kI; 
-      this.kD = kD; 
+    public SteerProps(
+      double kP, double kI, double kD, double kF,
+      double kEncoderResolution, double kGearRatio,
+      double kErrorThreshold
+    ) {
+      this.kP = kP;
+      this.kI = kI;
+      this.kD = kD;
+      this.kF = kF;
       this.kEncoderResolution = kEncoderResolution;
-      this.kGearRatio = kGearRatio; 
+      this.kGearRatio = kGearRatio;
       this.kCountsPerDegree = kEncoderResolution / 360 * kGearRatio;
       this.kErrorThreshold = kErrorThreshold;
     }
@@ -65,6 +71,7 @@ public final class Constants {
     public final double kP;
     public final double kI;
     public final double kD;
+    public final double kF;
 
     public final double kEncoderResolution;
     public final double kGearRatio;
@@ -72,13 +79,17 @@ public final class Constants {
     /** The number of encoder counts drives the robot one meter */
     public final double kCountsPerMeter;
 
-    public DriveProps(double kP, double kI, double kD, double kEncoderResolution, double kGearRatio, double kWheelCircumference) {
-      this.kP = kP; 
-      this.kI = kI; 
-      this.kD = kD; 
+    public DriveProps(
+      double kP, double kI, double kD, double kF,
+      double kEncoderResolution, double kGearRatio, double kWheelCircumference
+    ) {
+      this.kP = kP;
+      this.kI = kI;
+      this.kD = kD;
+      this.kF = kF;
       this.kEncoderResolution = kEncoderResolution;
-      this.kGearRatio = kGearRatio; 
-      this.kWheelCircumference = kWheelCircumference; 
+      this.kGearRatio = kGearRatio;
+      this.kWheelCircumference = kWheelCircumference;
       kCountsPerMeter = kEncoderResolution * kGearRatio / kWheelCircumference;
     }
   }

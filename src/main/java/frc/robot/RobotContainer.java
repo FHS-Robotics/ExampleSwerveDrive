@@ -49,6 +49,7 @@ public class RobotContainer {
     motor.config_kP(0, kTalonSteer.kP, Misc.kConfigTimeout);
     motor.config_kI(0, kTalonSteer.kI, Misc.kConfigTimeout);
     motor.config_kD(0, kTalonSteer.kD, Misc.kConfigTimeout);
+    motor.config_kF(0, kTalonSteer.kF, Misc.kConfigTimeout);
     motor.setSelectedSensorPosition(0, 0, Misc.kConfigTimeout);
     return motor;
   }
@@ -60,6 +61,7 @@ public class RobotContainer {
     motor.config_kP(0, kTalonDrive.kP, Misc.kConfigTimeout);
     motor.config_kI(0, kTalonDrive.kI, Misc.kConfigTimeout);
     motor.config_kD(0, kTalonDrive.kD, Misc.kConfigTimeout);
+    motor.config_kF(0, kTalonSteer.kF, Misc.kConfigTimeout);
     return motor;
   }
 }
