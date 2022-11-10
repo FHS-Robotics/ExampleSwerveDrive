@@ -36,8 +36,15 @@ public class DebuggingActions {
       rumbleController(false);
     }
 
+    if (mController.getRightStickButtonPressed()) {
+      setSteerP(mCurrentSteerP * 2);
+      rumbleController(true);
+    } else if (mController.getRightStickButtonReleased()) {
+      rumbleController(false);
+    }
+
     if (mController.getRightBumperPressed()) {
-      setSteerP(mCurrentSteerP + 0.01 * 0.02);
+      setSteerP(mCurrentSteerP + 0.01);
       mButtonHeldTimer.reset();
       rumbleController(true);
     }
@@ -52,8 +59,15 @@ public class DebuggingActions {
       rumbleController(false);
     }
 
+    if (mController.getLeftStickButtonPressed()) {
+      setSteerP(mCurrentSteerP / 2);
+      rumbleController(true);
+    } else if (mController.getLeftStickButtonReleased()) {
+      rumbleController(false);
+    }
+
     if (mController.getLeftBumperPressed()) {
-      setSteerP(mCurrentSteerP - 0.01 * 0.02);
+      setSteerP(mCurrentSteerP - 0.01);
       mButtonHeldTimer.reset();
       rumbleController(true);
     }
