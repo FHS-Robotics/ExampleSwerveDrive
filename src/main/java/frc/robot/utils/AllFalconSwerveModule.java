@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import static frc.robot.Constants.*;
+import static frc.robot.utils.Utils.*;
 
 /**
  * A swerve module that uses Talon FX's as both driving motors
@@ -43,9 +44,11 @@ public class AllFalconSwerveModule implements ISwerveModule {
 
   @Override
   public boolean steerModule() {
+    double currentAngle =
+      mSteerMotor.getSelectedSensorPosition() / kTalonSteer.kCountsPerDegree;
     mSteerMotor.set(
       TalonFXControlMode.Position,
-      degreesToRaw(targetAngle)
+      degreesToRaw(optimizeTargetAngle(targetAngle, currentAngle))
     );
     double errorCounts = mSteerMotor.getClosedLoopError();
     lastSteerError = errorCounts / kTalonSteer.kCountsPerDegree;
