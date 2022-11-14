@@ -54,8 +54,8 @@ public class AllFalconSwerveModule implements ISwerveModule {
   @Override
   public void driveModule() {
     mDriveMotor.set(
-      TalonFXControlMode.Velocity,
-      metersPerSecToRaw(targets.getOptimalSpeed())
+      TalonFXControlMode.PercentOutput,
+      targets.getOptimalSpeed()
     );
   }
 
