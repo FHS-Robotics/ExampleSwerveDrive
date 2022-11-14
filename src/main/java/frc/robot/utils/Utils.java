@@ -26,22 +26,4 @@ public class Utils {
     RobotContainer.controller.setRumble(RumbleType.kLeftRumble, power);
     RobotContainer.controller.setRumble(RumbleType.kRightRumble, power);
   }
-
-  /**
-   * Optimizes the target angle, so the steering motor
-   * doesn't move more than 180 degrees.
-   * @param target in degrees
-   * @param current in degrees
-   * @return optimized target in degrees
-   */
-  public static double optimizeTargetAngle(double target, double current) {
-    long rotations = Math.round(current / 360);
-    if (target - current > 180) {
-      return rotations * 360 - (360 - target);
-    } else if (target - current < -180) {
-      return rotations * 360 + target;
-    } else {
-      return target;
-    }
-  }
 }
