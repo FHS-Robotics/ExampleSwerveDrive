@@ -3,14 +3,14 @@ package frc.robot.utils;
 public class SwerveTargets {
   public double angle;
   public double speed;
-  public boolean inverted = false;
+  private boolean inverted = false;
 
   public SwerveTargets(double angle, double speed) {
     this.angle = angle;
     this.speed = speed;
   }
 
-  public double getAngle() {
+  public double getOptimalAngle() {
     if (inverted) {
       return angle > 180 ? angle - 180 : angle + 180;
     } else {
@@ -18,7 +18,7 @@ public class SwerveTargets {
     }
   }
 
-  public double getSpeed() {
+  public double getOptimalSpeed() {
     return inverted ? -speed : speed;
   }
 

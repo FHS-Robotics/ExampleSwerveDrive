@@ -26,13 +26,13 @@ public class AllFalconSwerveModule implements ISwerveModule {
   @Override
   public void setTargetAngle(double angle) {
     targets.angle = angle;
-    targets.optimize(mSteerMotor.getSelectedSensorPosition() / kTalonSteer.kCountsPerDegree);
+    targets.optimize(getCurrentAngle());
   }
 
   @Override
   public void setTargetSpeed(double speed) {
     targets.speed = speed;
-    targets.optimize(mSteerMotor.getSelectedSensorPosition() / kTalonSteer.kCountsPerDegree);
+    targets.optimize(getCurrentAngle());
   }
 
   @Override
@@ -44,7 +44,7 @@ public class AllFalconSwerveModule implements ISwerveModule {
   public boolean steerModule() {
     mSteerMotor.set(
       TalonFXControlMode.Position,
-      degreesToRaw(targets.angle)
+      degreesToRaw(targets.getOptimalAngle())
     );
     double errorCounts = mSteerMotor.getClosedLoopError();
     lastSteerError = errorCounts / kTalonSteer.kCountsPerDegree;
@@ -55,12 +55,16 @@ public class AllFalconSwerveModule implements ISwerveModule {
   public void driveModule() {
     mDriveMotor.set(
       TalonFXControlMode.Velocity,
-      metersPerSecToRaw(targets.speed)
+      metersPerSecToRaw(targets.getOptimalSpeed())
     );
   }
 
   public double getLastSteerError() {
     return lastSteerError;
+  }
+
+  public double getCurrentAngle() {
+    return mSteerMotor.getSelectedSensorPosition() / kTalonSteer.kCountsPerDegree;
   }
 
   @Override
@@ -107,7 +111,7 @@ public class AllFalconSwerveModule implements ISwerveModule {
   public String toString() {
     return String.format(
       "AllFalconSwerveModule { targetAngle = %.2f, targetSpeed = %.2f, lastSteerError = %.2f }",
-      targets.angle, targets.speed, lastSteerError
+      targets.getOptimalAngle(), targets.getOptimalSpeed(), lastSteerError
     );
   }
 }
