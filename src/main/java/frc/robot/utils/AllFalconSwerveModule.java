@@ -110,8 +110,8 @@ public class AllFalconSwerveModule implements ISwerveModule {
   @Override
   public String toString() {
     return String.format(
-      "AllFalconSwerveModule { targetAngle = %.2f, targetSpeed = %.2f, lastSteerError = %.2f }",
-      targets.getOptimalAngle(), targets.getOptimalSpeed(), lastSteerError
+      "{ type = Falcon, cAng = %.0f, tAng = %.0f, tSpd = %.3f, steerError = %.0f }",
+      getCurrentAngle(), targets.getOptimalAngle(), targets.getOptimalSpeed(), lastSteerError
     );
   }
 }
