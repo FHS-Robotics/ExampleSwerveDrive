@@ -24,18 +24,19 @@ public class Robot extends TimedRobot {
   public void disabledExit() {}
 
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+    DebugValues.clear();
+  }
 
   @Override
   public void autonomousPeriodic() {}
 
   @Override
-  public void autonomousExit() {
-    DebugValues.clear();
-  }
+  public void autonomousExit() {}
 
   @Override
   public void teleopInit() {
+    DebugValues.clear();
     RobotContainer.teleopDriveCommand.schedule();
   }
 
@@ -45,19 +46,18 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopExit() {
     RobotContainer.teleopDriveCommand.cancel();
-    DebugValues.clear();
   }
 
   @Override
-  public void testInit() {}
+  public void testInit() {
+    DebugValues.clear();
+  }
   
   @Override
   public void testPeriodic() {}
 
   @Override
-  public void testExit() {
-    DebugValues.clear();
-  }
+  public void testExit() {}
 
   @Override
   public void simulationInit() {}
