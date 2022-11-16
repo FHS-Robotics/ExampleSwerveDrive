@@ -84,6 +84,13 @@ public class SwerveDriveSubsystem extends SubsystemBase {
 		}
   }
 
+	public void goToNeutral() {
+		for (var module : mSwerveModules) {
+			module.setTargetAngle(0);
+			module.setTargetSpeed(0);
+		}
+	}
+
 	@Override
 	public void periodic() {
 		boolean allWithinSteerThreshold = true;

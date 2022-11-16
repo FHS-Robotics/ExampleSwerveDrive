@@ -31,7 +31,16 @@ public class TeleopDriveCommand extends CommandBase {
     strafe = deadband(strafe);
     rotation = deadband(rotation);
 
-    mSwerveDrive.holonomicDrive(forward, strafe, rotation);
+    if (forward != 0 || strafe != 0 || rotation != 0) {
+      mSwerveDrive.holonomicDrive(forward, strafe, rotation);
+    } else {
+      mSwerveDrive.goToNeutral();
+    }
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    mSwerveDrive.goToNeutral();
   }
 
   @Override
