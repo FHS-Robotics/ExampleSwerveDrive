@@ -11,7 +11,7 @@ public interface ISwerveModule {
   /**
    * Sets the speed this swerve module should run its motor at.
    *
-   * @param speed target speed in meters per second
+   * @param speed target speed [0, 1]
    */
   void setTargetSpeed(double speed);
 
@@ -58,7 +58,7 @@ public interface ISwerveModule {
   /**
    * Returns the last set target speed of this module.
    *
-   * @return speed in meters per second
+   * @return speed [0, 1]
    */
   double getTargetSpeed();
 
