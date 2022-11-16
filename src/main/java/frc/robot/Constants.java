@@ -16,7 +16,7 @@ public final class Constants {
     new MotorConfig(
       0.05, 0, 0, 0, // PIDF
       0,             // Integral Zone
-      0,             // Allowable Error (initialized below)
+      0,             // Allowable Error
       0,             // Max Integral Accumulator
       0.5,           // Peak Output
       1              // Loop Period (ms)
@@ -25,11 +25,6 @@ public final class Constants {
     7.85 / 1,        // Gear Ratio
     0.05 * 360       // Steer Error Threshold
   );
-  {
-    final double errorDegrees = 0.5;
-    final double degToCount = kTalonSteer.kCountsPerDegree;
-    kTalonSteer.kMotorConfig.allowableClosedloopError = errorDegrees * degToCount;
-  }
   public static DriveProps kTalonDrive = new DriveProps(
     new MotorConfig(
       0, 0, 0, 0.5, // PIDF
