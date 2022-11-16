@@ -22,7 +22,7 @@ public final class Constants {
       1              // Loop Period (ms)
     ),
     2048,            // Encoder Resolution
-    7.85 / 1,        // Gear Ratio
+    12 / 1,          // Gear Ratio
     0.05 * 360       // Steer Error Threshold
   );
   public static DriveProps kTalonDrive = new DriveProps(
@@ -35,7 +35,7 @@ public final class Constants {
       1             // Loop Period (ms)
     ),
     2048,           // Encoder Resolution
-    7.85 / 1,       // Gear Ratio
+    12 / 1,         // Gear Ratio
     Units.inchesToMeters(4) * Math.PI // Wheel Circumference
   );
 

@@ -56,7 +56,6 @@ public class RobotContainer {
       kTalonSteer.kMotorConfig.toCtreSlotConfiguration(),
       0, Misc.kConfigTimeout
     );
-    motor.setSelectedSensorPosition(0, 0, Misc.kConfigTimeout);
     return motor;
   }
 
