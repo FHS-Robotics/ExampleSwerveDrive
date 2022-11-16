@@ -3,6 +3,8 @@ package frc.robot.utils;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
+
 import static frc.robot.Constants.*;
 
 /**
@@ -14,6 +16,8 @@ public class AllFalconSwerveModule implements ISwerveModule {
   private WPI_TalonFX mSteerMotor;
 
   private SwerveTargets targets = new SwerveTargets(0, 0);
+
+  private SlewRateLimiter driveLimiter = new SlewRateLimiter(0.2);
 
   /** Last error from a call to steerModule() in degrees */
   private double lastSteerError = 0;
@@ -55,7 +59,7 @@ public class AllFalconSwerveModule implements ISwerveModule {
   public void driveModule() {
     mDriveMotor.set(
       TalonFXControlMode.PercentOutput,
-      targets.getOptimalSpeed()
+      driveLimiter.calculate(targets.getOptimalSpeed())
     );
   }
 
