@@ -34,40 +34,9 @@ public interface ISwerveModule {
 
   /**
    * Runs the driving motor to move the robot.
-   * 
-   * SwerveDriveSubsystem will make sure that this is run if
-   * and only if all swerve module have succesessfully
-   * steerModule()'ed to their target angles.
-   */
-  void driveModule();
-
-  /**
-   * Get the steer error from the last time steerModule() was called.
    *
-   * @return last steerModule() error in degrees
+   * @param targetMet if true driving motor will spin at
+   * target speed, otherwise it will be stopped
    */
-  double getLastSteerError();
-
-  /**
-   * Returns the last set target angle of this module.
-   *
-   * @return angle in degrees
-   */
-  double getTargetAngle();
-
-  /**
-   * Returns the last set target speed of this module.
-   *
-   * @return speed [0, 1]
-   */
-  double getTargetSpeed();
-
-  /**
-   * Sets this module's encoders' position and velocity
-   * values during simulation mode.
-   *
-   * @param steerPosition in degrees
-   * @param driveVelocity in meters per second
-   */
-  void setSimValues(double steerPosition, double driveVelocity);
+  void driveModule(boolean targetMet);
 }

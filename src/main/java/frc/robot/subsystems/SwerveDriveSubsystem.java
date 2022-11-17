@@ -108,19 +108,8 @@ public class SwerveDriveSubsystem extends SubsystemBase {
 		DebugValues.put("Periodic: Swerve 2 (BL)", mSwerveModules[2].toString());
 		DebugValues.put("Periodic: Swerve 3 (BR)", mSwerveModules[3].toString());
 
-		if (allWithinSteerThreshold) {
-			for (var module : mSwerveModules) {
-				module.driveModule();
-			}
-		}
-	}
-
-	@Override
-	public void simulationPeriodic() {
 		for (var module : mSwerveModules) {
-			double tAngle = module.getTargetAngle();
-			double tSpeed = module.getTargetSpeed();
-			module.setSimValues(tAngle, tSpeed);
+			module.driveModule(allWithinSteerThreshold);
 		}
 	}
 }

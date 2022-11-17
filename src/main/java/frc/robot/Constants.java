@@ -22,8 +22,7 @@ public final class Constants {
       1              // Loop Period (ms)
     ),
     2048,            // Encoder Resolution
-    12 / 1,          // Gear Ratio
-    0.05 * 360       // Steer Error Threshold
+    12 / 1           // Gear Ratio
   );
   public static DriveProps kTalonDrive = new DriveProps(
     new MotorConfig(
@@ -50,6 +49,11 @@ public final class Constants {
     public static final double kDeadband = 0.1;
     public static final double kMaxSpeed = 0.35;
 
+    /**
+     * Maximum error (in degrees) before wheels will drive
+     */
+    public static final double kThresholdToDrive = 30;
+
     public static final int kConfigTimeout = 100;
   }
 
@@ -60,19 +64,14 @@ public final class Constants {
     public final double kGearRatio;
     public final double kCountsPerDegree;
 
-    /** Maximum error (in degrees) the swerve module can be off by. */
-    public final double kErrorThreshold;
-
     public SteerProps(
       MotorConfig kMotorConfig,
-      double kEncoderResolution, double kGearRatio,
-      double kErrorThreshold
+      double kEncoderResolution, double kGearRatio
     ) {
       this.kMotorConfig = kMotorConfig;
       this.kEncoderResolution = kEncoderResolution;
       this.kGearRatio = kGearRatio;
       this.kCountsPerDegree = kEncoderResolution / 360 * kGearRatio;
-      this.kErrorThreshold = kErrorThreshold;
     }
   }
 

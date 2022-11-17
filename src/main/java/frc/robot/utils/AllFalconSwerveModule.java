@@ -52,14 +52,15 @@ public class AllFalconSwerveModule implements ISwerveModule {
     );
     double errorCounts = mSteerMotor.getClosedLoopError();
     lastSteerError = errorCounts / kTalonSteer.kCountsPerDegree;
-    return Math.abs(lastSteerError) < kTalonSteer.kErrorThreshold;
+    return Math.abs(lastSteerError) < Misc.kThresholdToDrive;
   }
 
   @Override
-  public void driveModule() {
+  public void driveModule(boolean targetMet) {
+    double speed = targetMet ? targets.getOptimalSpeed() : 0;
     mDriveMotor.set(
       TalonFXControlMode.PercentOutput,
-      driveLimiter.calculate(targets.getOptimalSpeed())
+      driveLimiter.calculate(speed)
     );
   }
 
@@ -71,24 +72,6 @@ public class AllFalconSwerveModule implements ISwerveModule {
     return mSteerMotor.getSelectedSensorPosition() / kTalonSteer.kCountsPerDegree;
   }
 
-  @Override
-  public double getTargetAngle() {
-    return targets.angle;
-  }
-
-  @Override
-  public double getTargetSpeed() {
-    return targets.speed;
-  }
-
-  @Override
-  public void setSimValues(double steerPosition, double driveVelocity) {
-    var driveSim = mDriveMotor.getSimCollection();
-    var steerSim = mSteerMotor.getSimCollection();
-    driveSim.setIntegratedSensorRawPosition(degreesToRaw(steerPosition));
-    steerSim.setIntegratedSensorVelocity(metersPerSecToRaw(driveVelocity));
-  }
-
   /**
    * Calculates the raw units for the given angle to give
    * to a TalonFX steering motor.
@@ -98,17 +81,6 @@ public class AllFalconSwerveModule implements ISwerveModule {
    */
   private int degreesToRaw(double angle) {
     return (int) Math.round(angle * kTalonSteer.kCountsPerDegree);
-  }
-
-  /**
-   * Calculates the raw units for the given speed to give
-   * to a TalonFX driving motor.
-   *
-   * @param speed in meters per second
-   * @return target speed in raw units per 100ms
-   */
-  private static int metersPerSecToRaw(double speed) {
-    return (int) Math.round(speed * kTalonDrive.kCountsPerMeter * 0.1);
   }
 
   @Override
