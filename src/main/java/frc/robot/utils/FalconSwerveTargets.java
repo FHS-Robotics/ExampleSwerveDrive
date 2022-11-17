@@ -1,11 +1,11 @@
 package frc.robot.utils;
 
-public class SwerveTargets {
+public class FalconSwerveTargets {
   public double angle;
   public double speed;
   private boolean inverted = false;
 
-  public SwerveTargets(double angle, double speed) {
+  public FalconSwerveTargets(double angle, double speed) {
     this.angle = angle;
     this.speed = speed;
   }

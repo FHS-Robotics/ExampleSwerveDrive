@@ -15,7 +15,7 @@ public class AllFalconSwerveModule implements ISwerveModule {
   private WPI_TalonFX mDriveMotor;
   private WPI_TalonFX mSteerMotor;
 
-  private SwerveTargets targets = new SwerveTargets(0, 0);
+  private FalconSwerveTargets targets = new FalconSwerveTargets(0, 0);
 
   private SlewRateLimiter driveLimiter = new SlewRateLimiter(0.2);
 
