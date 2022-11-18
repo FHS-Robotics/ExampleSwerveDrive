@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.debug.DebugValues;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 
 import static frc.robot.utils.Utils.*;
@@ -27,9 +28,19 @@ public class TeleopDriveCommand extends CommandBase {
     double strafe = mController.getLeftX();
     double rotation = mController.getRightX();
 
+    DebugValues.put(
+      "Controller Unfiltered",
+      doubleArrayToString(new double[] {forward, strafe, rotation}, 2)
+    );
+
     forward = deadband(forward);
     strafe = deadband(strafe);
     rotation = deadband(rotation);
+
+    DebugValues.put(
+      "Controller Filtered",
+      doubleArrayToString(new double[] {forward, strafe, rotation}, 2)
+    );
 
     if (forward != 0 || strafe != 0 || rotation != 0) {
       mSwerveDrive.holonomicDrive(forward, strafe, rotation);

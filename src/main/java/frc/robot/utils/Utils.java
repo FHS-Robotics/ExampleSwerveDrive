@@ -9,7 +9,11 @@ public class Utils {
   private Utils() {}
 
   public static double deadband(double value) {
-    return Math.abs(value) > Misc.kDeadband ? value : 0;
+    if (Math.abs(value) > Misc.kDeadband) {
+      return Math.min((value - Misc.kDeadband) / (1 - Misc.kDeadband), 1);
+    } else {
+      return 0;
+    }
   }
 
   /**
@@ -25,5 +29,17 @@ public class Utils {
     double power = shouldRumble ? 0.75 : 0;
     RobotContainer.controller.setRumble(RumbleType.kLeftRumble, power);
     RobotContainer.controller.setRumble(RumbleType.kRightRumble, power);
+  }
+
+  public static String doubleArrayToString(double[] array, int decimals) {
+    var stringBuilder = new StringBuilder('[');
+    for (int i = 0; i < array.length; i++) {
+      stringBuilder.append(String.format("%." + decimals + "f", array[i]));
+      if (i < array.length - 1) {
+        stringBuilder.append(", ");
+      }
+    }
+    stringBuilder.append(']');
+    return stringBuilder.toString();
   }
 }

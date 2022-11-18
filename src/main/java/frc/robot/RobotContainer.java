@@ -10,7 +10,6 @@ import static frc.robot.Constants.*;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -51,7 +50,7 @@ public class RobotContainer {
     motor.setSensorPhase(false);
     motor.setNeutralMode(NeutralMode.Coast);
     motor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-    motor.configIntegratedSensorInitializationStrategy(SensorInitializationStrategy.BootToAbsolutePosition);
+    motor.setSelectedSensorPosition(0, 0, Misc.kConfigTimeout);
     motor.configureSlot(
       kTalonSteer.kMotorConfig.toCtreSlotConfiguration(),
       0, Misc.kConfigTimeout

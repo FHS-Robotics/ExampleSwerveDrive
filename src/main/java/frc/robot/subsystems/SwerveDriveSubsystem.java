@@ -6,8 +6,6 @@ import frc.robot.utils.ISwerveModule;
 import static frc.robot.Constants.*;
 import static frc.robot.utils.Utils.*;
 
-import java.util.Arrays;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SwerveDriveSubsystem extends SubsystemBase {
@@ -68,19 +66,21 @@ public class SwerveDriveSubsystem extends SubsystemBase {
 			}
 		}
 
-		boolean shouldChangeTargetAngle = Math.abs(forward) > 0.05 ||
+		boolean changeTargets = Math.abs(forward) > 0.05 ||
 			Math.abs(strafe) > 0.05 || Math.abs(rotation) > 0.05;
 
-		if (shouldChangeTargetAngle) {
-			DebugValues.put("Drive: Angles", Arrays.toString(angles));
-		}
-		DebugValues.put("Drive: Speeds", Arrays.toString(speeds));
+		DebugValues.put("Drive: Change Targets?", "" + changeTargets);
+		DebugValues.put("Drive: Angles", doubleArrayToString(angles, 2));
+		DebugValues.put("Drive: Speeds", doubleArrayToString(speeds, 2));
 
 		for (int i = 0; i < 4; i++) {
-			if (shouldChangeTargetAngle) {
+			if (changeTargets) {
 				mSwerveModules[i].setTargetAngle(angles[i]);
+				mSwerveModules[i].setTargetSpeed(speeds[i]);
+			} else {
+				mSwerveModules[i].setTargetAngle(0);
+				mSwerveModules[i].setTargetSpeed(0);
 			}
-			mSwerveModules[i].setTargetSpeed(speeds[i]);
 		}
   }
 
