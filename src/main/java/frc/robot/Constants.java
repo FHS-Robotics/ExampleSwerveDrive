@@ -47,7 +47,7 @@ public final class Constants {
     public static final double kWheelBase = 1;
 
     public static final double kDeadband = 0.4;
-    public static final double kMaxSpeed = 0.35;
+    public static final double kMaxSpeed = 0.175;
 
     /**
      * Maximum error (in degrees) before wheels will drive
