@@ -36,14 +36,14 @@ public class DebuggingActions {
     }
 
     if (mController.getRightStickButtonPressed()) {
-      setSteerP(gain.get() * 2);
+      setGain(gain.get() * 2);
       rumbleController(true);
     } else if (mController.getRightStickButtonReleased()) {
       rumbleController(false);
     }
 
     if (mController.getRightBumperPressed()) {
-      setSteerP(gain.get() + 0.01);
+      setGain(gain.get() + 0.01);
       mButtonHeldTimer.reset();
       rumbleController(true);
     }
@@ -52,21 +52,21 @@ public class DebuggingActions {
       mController.getRightBumper() &&
       mButtonHeldTimer.hasElapsed(1)
     ) {
-      setSteerP(gain.get() + 0.01 * 0.02);
+      setGain(gain.get() + 0.01 * 0.02);
       rumbleController(true);
     } else if (mController.getRightBumperReleased()) {
       rumbleController(false);
     }
 
     if (mController.getLeftStickButtonPressed()) {
-      setSteerP(gain.get() / 2);
+      setGain(gain.get() / 2);
       rumbleController(true);
     } else if (mController.getLeftStickButtonReleased()) {
       rumbleController(false);
     }
 
     if (mController.getLeftBumperPressed()) {
-      setSteerP(gain.get() - 0.01);
+      setGain(gain.get() - 0.01);
       mButtonHeldTimer.reset();
       rumbleController(true);
     }
@@ -75,7 +75,7 @@ public class DebuggingActions {
       mController.getLeftBumper() &&
       mButtonHeldTimer.hasElapsed(1)
     ) {
-      setSteerP(gain.get() - 0.01 * 0.02);
+      setGain(gain.get() - 0.01 * 0.02);
       rumbleController(true);
     } else if (mController.getLeftBumperReleased()) {
       rumbleController(false);
@@ -97,7 +97,8 @@ public class DebuggingActions {
     }
   }
 
-  private void setSteerP(double steerP) {
-    gain.set(steerP);
+  private void setGain(double newGain) {
+    gain.set(newGain);
+    System.out.println("P Gain: " + newGain);
   }
 }
