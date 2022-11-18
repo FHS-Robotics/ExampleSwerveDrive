@@ -3,7 +3,6 @@ package frc.robot.debug;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.SwerveDriveSubsystem;
 
 import static frc.robot.Constants.*;
@@ -13,7 +12,7 @@ public class DebuggingActions {
   private XboxController mController;
   private SwerveDriveSubsystem mSwerveDrive;
 
-  private double mCurrentSteerP = kTalonDrive.kMotorConfig.kP;
+  private Customizable<Double> gain = kTalonSteer.kMotorConfig.kP;
 
   private Timer mButtonHeldTimer = new Timer();
 
@@ -37,14 +36,14 @@ public class DebuggingActions {
     }
 
     if (mController.getRightStickButtonPressed()) {
-      setSteerP(mCurrentSteerP * 2);
+      setSteerP(gain.get() * 2);
       rumbleController(true);
     } else if (mController.getRightStickButtonReleased()) {
       rumbleController(false);
     }
 
     if (mController.getRightBumperPressed()) {
-      setSteerP(mCurrentSteerP + 0.01);
+      setSteerP(gain.get() + 0.01);
       mButtonHeldTimer.reset();
       rumbleController(true);
     }
@@ -53,21 +52,21 @@ public class DebuggingActions {
       mController.getRightBumper() &&
       mButtonHeldTimer.hasElapsed(1)
     ) {
-      setSteerP(mCurrentSteerP + 0.01 * 0.02);
+      setSteerP(gain.get() + 0.01 * 0.02);
       rumbleController(true);
     } else if (mController.getRightBumperReleased()) {
       rumbleController(false);
     }
 
     if (mController.getLeftStickButtonPressed()) {
-      setSteerP(mCurrentSteerP / 2);
+      setSteerP(gain.get() / 2);
       rumbleController(true);
     } else if (mController.getLeftStickButtonReleased()) {
       rumbleController(false);
     }
 
     if (mController.getLeftBumperPressed()) {
-      setSteerP(mCurrentSteerP - 0.01);
+      setSteerP(gain.get() - 0.01);
       mButtonHeldTimer.reset();
       rumbleController(true);
     }
@@ -76,7 +75,7 @@ public class DebuggingActions {
       mController.getLeftBumper() &&
       mButtonHeldTimer.hasElapsed(1)
     ) {
-      setSteerP(mCurrentSteerP - 0.01 * 0.02);
+      setSteerP(gain.get() - 0.01 * 0.02);
       rumbleController(true);
     } else if (mController.getLeftBumperReleased()) {
       rumbleController(false);
@@ -99,10 +98,6 @@ public class DebuggingActions {
   }
 
   private void setSteerP(double steerP) {
-    this.mCurrentSteerP = steerP;
-    System.out.println("Steer P: " + mCurrentSteerP);
-      for (var motor : RobotContainer.steerMotors) {
-        motor.config_kP(0, mCurrentSteerP, Misc.kConfigTimeout);
-      }
+    gain.set(steerP);
   }
 }

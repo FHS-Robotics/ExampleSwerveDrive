@@ -56,6 +56,9 @@ public class RobotContainer {
       kTalonSteer.kMotorConfig.toCtreSlotConfiguration(),
       0, Misc.kConfigTimeout
     );
+    kTalonSteer.kMotorConfig.kP.consume((kP) -> motor.config_kP(0, kP, Misc.kConfigTimeout));
+    kTalonSteer.kMotorConfig.kI.consume((kI) -> motor.config_kI(0, kI, Misc.kConfigTimeout));
+    kTalonSteer.kMotorConfig.kD.consume((kD) -> motor.config_kD(0, kD, Misc.kConfigTimeout));
     return motor;
   }
 
@@ -69,6 +72,9 @@ public class RobotContainer {
       kTalonDrive.kMotorConfig.toCtreSlotConfiguration(),
       0, Misc.kConfigTimeout
     );
+    kTalonDrive.kMotorConfig.kP.consume((kP) -> motor.config_kP(0, kP, Misc.kConfigTimeout));
+    kTalonDrive.kMotorConfig.kI.consume((kI) -> motor.config_kI(0, kI, Misc.kConfigTimeout));
+    kTalonDrive.kMotorConfig.kD.consume((kD) -> motor.config_kD(0, kD, Misc.kConfigTimeout));
     return motor;
   }
 }

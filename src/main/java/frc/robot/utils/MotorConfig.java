@@ -2,9 +2,11 @@ package frc.robot.utils;
 
 import com.ctre.phoenix.motorcontrol.can.SlotConfiguration;
 
+import frc.robot.debug.Customizable;
+
 public class MotorConfig {
   /** Motor Gain */
-  public double kP, kI, kD, kF;
+  public Customizable<Double> kP, kI, kD, kF;
   /** Zone passed which the integral accumulator will be cleared */
   public double integralZone;
   /** Allowable error to count as "close enough" */
@@ -24,10 +26,10 @@ public class MotorConfig {
     double closedLoopPeakOutput,
     int closedLoopPeriod
   ) {
-    this.kP = kP;
-    this.kI = kI;
-    this.kD = kD;
-    this.kF = kF;
+    this.kP = new Customizable<>(kP);
+    this.kI = new Customizable<>(kI);
+    this.kD = new Customizable<>(kD);
+    this.kF = new Customizable<>(kF);
     this.integralZone = integralZone;
     this.allowableClosedloopError = allowableClosedloopError;
     this.maxIntegralAccumulator = maxIntegralAccumulator;
@@ -37,10 +39,10 @@ public class MotorConfig {
 
   public SlotConfiguration toCtreSlotConfiguration() {
     SlotConfiguration slotConfiguration = new SlotConfiguration();
-    slotConfiguration.kP = kP;
-    slotConfiguration.kI = kI;
-    slotConfiguration.kD = kD;
-    slotConfiguration.kF = kF;
+    slotConfiguration.kP = kP.get();
+    slotConfiguration.kI = kI.get();
+    slotConfiguration.kD = kD.get();
+    slotConfiguration.kF = kF.get();
     slotConfiguration.integralZone = integralZone;
     slotConfiguration.allowableClosedloopError = allowableClosedloopError;
     slotConfiguration.maxIntegralAccumulator = maxIntegralAccumulator;
