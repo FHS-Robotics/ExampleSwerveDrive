@@ -13,6 +13,8 @@ public class DebuggingActions {
   private SwerveDriveSubsystem mSwerveDrive;
 
   private Customizable<Double> gain = kTalonSteer.kMotorConfig.kP;
+  private static final double gainIncrement = 0.001;
+  private static final double gainMultiplier = 2;
 
   private Timer mButtonHeldTimer = new Timer();
 
@@ -36,14 +38,14 @@ public class DebuggingActions {
     }
 
     if (mController.getRightStickButtonPressed()) {
-      setGain(gain.get() * 2);
+      setGain(gain.get() * gainMultiplier);
       rumbleController(true);
     } else if (mController.getRightStickButtonReleased()) {
       rumbleController(false);
     }
 
     if (mController.getRightBumperPressed()) {
-      setGain(gain.get() + 0.01);
+      setGain(gain.get() + gainIncrement);
       mButtonHeldTimer.reset();
       rumbleController(true);
     }
@@ -52,21 +54,21 @@ public class DebuggingActions {
       mController.getRightBumper() &&
       mButtonHeldTimer.hasElapsed(1)
     ) {
-      setGain(gain.get() + 0.01 * 0.02);
+      setGain(gain.get() + gainIncrement * 0.02);
       rumbleController(true);
     } else if (mController.getRightBumperReleased()) {
       rumbleController(false);
     }
 
     if (mController.getLeftStickButtonPressed()) {
-      setGain(gain.get() / 2);
+      setGain(gain.get() / gainMultiplier);
       rumbleController(true);
     } else if (mController.getLeftStickButtonReleased()) {
       rumbleController(false);
     }
 
     if (mController.getLeftBumperPressed()) {
-      setGain(gain.get() - 0.01);
+      setGain(gain.get() - gainIncrement);
       mButtonHeldTimer.reset();
       rumbleController(true);
     }
@@ -75,7 +77,7 @@ public class DebuggingActions {
       mController.getLeftBumper() &&
       mButtonHeldTimer.hasElapsed(1)
     ) {
-      setGain(gain.get() - 0.01 * 0.02);
+      setGain(gain.get() - gainIncrement * 0.02);
       rumbleController(true);
     } else if (mController.getLeftBumperReleased()) {
       rumbleController(false);
