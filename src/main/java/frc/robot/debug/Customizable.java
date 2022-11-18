@@ -1,10 +1,11 @@
 package frc.robot.debug;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class Customizable<T extends Object> {
-  private List<Consumer<T>> mConsumers;
+  private List<Consumer<T>> mConsumers = new ArrayList<>();
   private T mValue;
 
   public Customizable(T initialValue) {
