@@ -39,12 +39,9 @@ public final class Constants {
   );
 
   public static final class Misc {
-    // The unit of measurement used for kTrackWidth and
-    // kWheelBase does not matter as long as they are the
-    // same since only the ratio between kTrackWidth and
-    // kWheelBase matter.
-    public static final double kTrackWidth = 1;
-    public static final double kWheelBase = 1;
+    // TrackWidth and WheelBase are in inches.
+    public static final double kTrackWidth = 21.5;
+    public static final double kWheelBase = 21.5;
 
     public static final double kDeadband = 0.4;
     public static final double kMaxSpeed = 0.175;
