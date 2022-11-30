@@ -17,7 +17,7 @@ public class AllFalconSwerveModule implements ISwerveModule {
 
   private FalconSwerveTargets targets = new FalconSwerveTargets(0, 0);
 
-  private SlewRateLimiter driveLimiter = new SlewRateLimiter(0.2);
+  private SlewRateLimiter driveLimiter = new SlewRateLimiter(1 / Misc.kSlowDownTime);
 
   /** Last error from a call to steerModule() in degrees */
   private double lastSteerError = 0;

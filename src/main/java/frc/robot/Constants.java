@@ -45,6 +45,11 @@ public final class Constants {
 
     public static final double kDeadband = 0.4;
     public static final double kMaxSpeed = 0.175;
+    /**
+     * Time in seconds wheels will take to slow from full
+     * throttle to neutral
+     */
+    public static final double kSlowDownTime = 0.25;
 
     /**
      * Maximum error (in degrees) before wheels will drive
