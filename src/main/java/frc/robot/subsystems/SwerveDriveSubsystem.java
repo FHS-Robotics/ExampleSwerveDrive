@@ -35,10 +35,10 @@ public class SwerveDriveSubsystem extends SubsystemBase {
 	}
 
   public void holonomicDrive(double forward, double strafe, double rotation) {
-    double a = strafe - rotation * (Misc.kWheelBase / Misc.kTrackWidth);
-		double b = strafe + rotation * (Misc.kWheelBase / Misc.kTrackWidth);
-		double c = forward - rotation * (Misc.kTrackWidth / Misc.kWheelBase);
-		double d = forward + rotation * (Misc.kTrackWidth / Misc.kWheelBase);
+    double a = strafe - rotation * (kWheelBaseMeters / kTrackWidthMeters);
+		double b = strafe + rotation * (kWheelBaseMeters / kTrackWidthMeters);
+		double c = forward - rotation * (kTrackWidthMeters / kWheelBaseMeters);
+		double d = forward + rotation * (kTrackWidthMeters / kWheelBaseMeters);
 
 		double[] angles = new double[]{
 			mapAngle(Math.atan2(b, c) * 180 / Math.PI),
@@ -60,9 +60,9 @@ public class SwerveDriveSubsystem extends SubsystemBase {
 				maxSpeed = speed;
 			}
 		}
-		if (maxSpeed > Misc.kMaxSpeed) {
+		if (maxSpeed > kMaxSpeed) {
 			for (int i = 0; i < speeds.length; i++) {
-				speeds[i] = speeds[i] / maxSpeed * Misc.kMaxSpeed;
+				speeds[i] = speeds[i] / maxSpeed * kMaxSpeed;
 			}
 		}
 

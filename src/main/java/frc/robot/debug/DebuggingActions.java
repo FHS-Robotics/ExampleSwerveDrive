@@ -12,7 +12,7 @@ public class DebuggingActions {
   private XboxController mController;
   private SwerveDriveSubsystem mSwerveDrive;
 
-  private Customizable<Double> gain = kTalonSteer.kMotorConfig.kP;
+  private Customizable<Double> gain = kSteerMotorConfig.kP;
   private static final double gainIncrement = 0.001;
   private static final double gainMultiplier = 2;
 

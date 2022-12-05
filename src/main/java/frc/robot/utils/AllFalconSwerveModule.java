@@ -17,7 +17,7 @@ public class AllFalconSwerveModule implements ISwerveModule {
 
   private FalconSwerveTargets targets = new FalconSwerveTargets(0, 0);
 
-  private SlewRateLimiter driveLimiter = new SlewRateLimiter(1 / Misc.kSlowDownTime);
+  private SlewRateLimiter driveLimiter = new SlewRateLimiter(1 / kSlowDownTime);
 
   /** Last error from a call to steerModule() in degrees */
   private double lastSteerError = 0;
@@ -41,7 +41,7 @@ public class AllFalconSwerveModule implements ISwerveModule {
 
   @Override
   public void zeroSteering() {
-    mSteerMotor.setSelectedSensorPosition(0, 0, Misc.kConfigTimeout);
+    mSteerMotor.setSelectedSensorPosition(0, 0, kConfigureMotorTimeout);
   }
 
   @Override
@@ -51,8 +51,8 @@ public class AllFalconSwerveModule implements ISwerveModule {
       degreesToRaw(targets.getOptimalAngle())
     );
     double errorCounts = mSteerMotor.getClosedLoopError();
-    lastSteerError = errorCounts / kTalonSteer.kCountsPerDegree;
-    return Math.abs(lastSteerError) < Misc.kThresholdToDrive;
+    lastSteerError = errorCounts / kSteerCountsPerDegree;
+    return Math.abs(lastSteerError) < kThresholdToDrive;
   }
 
   @Override
@@ -69,7 +69,7 @@ public class AllFalconSwerveModule implements ISwerveModule {
   }
 
   public double getCurrentAngle() {
-    return mSteerMotor.getSelectedSensorPosition() / kTalonSteer.kCountsPerDegree;
+    return mSteerMotor.getSelectedSensorPosition() / kSteerCountsPerDegree;
   }
 
   /**
@@ -80,7 +80,7 @@ public class AllFalconSwerveModule implements ISwerveModule {
    * @return target angle in raw units
    */
   private int degreesToRaw(double angle) {
-    return (int) Math.round(angle * kTalonSteer.kCountsPerDegree);
+    return (int) Math.round(angle * kSteerCountsPerDegree);
   }
 
   @Override
