@@ -1,4 +1,4 @@
-package frc.robot.debug;
+package frc.robot.config;
 
 import java.util.ArrayList;
 import java.util.List;

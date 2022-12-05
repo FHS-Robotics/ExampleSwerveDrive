@@ -3,7 +3,8 @@ package frc.robot;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.debug.DebuggingActions;
 import frc.robot.subsystems.SwerveDriveSubsystem;
-import frc.robot.utils.AllFalconSwerveModule;
+import frc.robot.swerve.AllFalconSwerveModule;
+import frc.robot.utils.XboxControllerExt;
 
 import static frc.robot.Constants.*;
 
@@ -11,10 +12,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.XboxController;
-
 public class RobotContainer {
-  public static final XboxController controller = new XboxController(0);
+  public static final XboxControllerExt controller = new XboxControllerExt(0);
 
   public static final WPI_TalonFX[] driveMotors = {
     talonDriveMotor(kDriveMotorPorts[0]),

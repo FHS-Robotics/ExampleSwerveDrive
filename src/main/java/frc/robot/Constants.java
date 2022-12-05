@@ -1,6 +1,6 @@
 package frc.robot;
 
-import frc.robot.utils.MotorConfig;
+import frc.robot.config.MotorConfig;
 
 public final class Constants {
   // Order of both steer and drive ports are:

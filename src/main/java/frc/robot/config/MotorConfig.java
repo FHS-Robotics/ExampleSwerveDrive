@@ -1,8 +1,6 @@
-package frc.robot.utils;
+package frc.robot.config;
 
 import com.ctre.phoenix.motorcontrol.can.SlotConfiguration;
-
-import frc.robot.debug.Customizable;
 
 public class MotorConfig {
   /** Motor Gain */

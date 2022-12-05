@@ -1,4 +1,4 @@
-package frc.robot.utils;
+package frc.robot.swerve;
 
 public class FalconSwerveTargets {
   public double angle;

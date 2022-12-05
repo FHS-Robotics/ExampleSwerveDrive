@@ -2,9 +2,6 @@ package frc.robot.utils;
 
 import static frc.robot.Constants.*;
 
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
-import frc.robot.RobotContainer;
-
 public class Utils {
   private Utils() {}
 
@@ -23,12 +20,6 @@ public class Utils {
    */
   public static double mapAngle(double angle) {
     return angle < 0 ? 360 + angle : angle;
-  }
-
-  public static void rumbleController(boolean shouldRumble) {
-    double power = shouldRumble ? 0.75 : 0;
-    RobotContainer.controller.setRumble(RumbleType.kLeftRumble, power);
-    RobotContainer.controller.setRumble(RumbleType.kRightRumble, power);
   }
 
   public static String doubleArrayToString(double[] array, int decimals) {

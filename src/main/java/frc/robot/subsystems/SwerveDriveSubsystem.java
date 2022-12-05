@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.debug.DebugValues;
-import frc.robot.utils.ISwerveModule;
+import frc.robot.swerve.ISwerveModule;
 
 import static frc.robot.Constants.*;
 import static frc.robot.utils.Utils.*;

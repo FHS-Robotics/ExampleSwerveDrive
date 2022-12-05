@@ -1,15 +1,15 @@
 package frc.robot.debug;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.config.Customizable;
 import frc.robot.subsystems.SwerveDriveSubsystem;
+import frc.robot.utils.XboxControllerExt;
 
 import static frc.robot.Constants.*;
-import static frc.robot.utils.Utils.*;
 
 public class DebuggingActions {
-  private XboxController mController;
+  private XboxControllerExt mController;
   private SwerveDriveSubsystem mSwerveDrive;
 
   private Customizable<Double> gain = kSteerMotorConfig.kP;
@@ -18,7 +18,7 @@ public class DebuggingActions {
 
   private Timer mButtonHeldTimer = new Timer();
 
-  public DebuggingActions(XboxController controller, SwerveDriveSubsystem swerveDrive) {
+  public DebuggingActions(XboxControllerExt controller, SwerveDriveSubsystem swerveDrive) {
     mController = controller;
     mSwerveDrive = swerveDrive;
     mButtonHeldTimer.start();
@@ -32,22 +32,22 @@ public class DebuggingActions {
   public void runActions() {
     if (mController.getBButtonPressed()) {
       mSwerveDrive.zeroSteering();
-      rumbleController(true);
+      mController.rumbleController(true);
     } else if (mController.getBButtonReleased()) {
-      rumbleController(false);
+      mController.rumbleController(false);
     }
 
     if (mController.getRightStickButtonPressed()) {
       setGain(gain.get() * gainMultiplier);
-      rumbleController(true);
+      mController.rumbleController(true);
     } else if (mController.getRightStickButtonReleased()) {
-      rumbleController(false);
+      mController.rumbleController(false);
     }
 
     if (mController.getRightBumperPressed()) {
       setGain(gain.get() + gainIncrement);
       mButtonHeldTimer.reset();
-      rumbleController(true);
+      mController.rumbleController(true);
     }
 
     if (
@@ -55,22 +55,22 @@ public class DebuggingActions {
       mButtonHeldTimer.hasElapsed(1)
     ) {
       setGain(gain.get() + gainIncrement * 0.02);
-      rumbleController(true);
+      mController.rumbleController(true);
     } else if (mController.getRightBumperReleased()) {
-      rumbleController(false);
+      mController.rumbleController(false);
     }
 
     if (mController.getLeftStickButtonPressed()) {
       setGain(gain.get() / gainMultiplier);
-      rumbleController(true);
+      mController.rumbleController(true);
     } else if (mController.getLeftStickButtonReleased()) {
-      rumbleController(false);
+      mController.rumbleController(false);
     }
 
     if (mController.getLeftBumperPressed()) {
       setGain(gain.get() - gainIncrement);
       mButtonHeldTimer.reset();
-      rumbleController(true);
+      mController.rumbleController(true);
     }
 
     if (
@@ -78,9 +78,9 @@ public class DebuggingActions {
       mButtonHeldTimer.hasElapsed(1)
     ) {
       setGain(gain.get() - gainIncrement * 0.02);
-      rumbleController(true);
+      mController.rumbleController(true);
     } else if (mController.getLeftBumperReleased()) {
-      rumbleController(false);
+      mController.rumbleController(false);
     }
 
     if (mController.getXButtonPressed()) {
@@ -89,9 +89,9 @@ public class DebuggingActions {
         System.out.println(debugged.getKey() + ": " + debugged.getValue());
       }
       System.out.println("===  END DEBUG DUMP  ===");
-      rumbleController(true);
+      mController.rumbleController(true);
     } else if (mController.getXButtonReleased()) {
-      rumbleController(false);
+      mController.rumbleController(false);
     }
 
     for (var debugged : DebugValues.getDebuggedValues().entrySet()) {

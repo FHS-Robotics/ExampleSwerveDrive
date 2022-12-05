@@ -1,4 +1,4 @@
-package frc.robot.utils;
+package frc.robot.swerve;
 
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
