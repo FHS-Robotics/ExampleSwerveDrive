@@ -3,7 +3,7 @@ package frc.robot;
 import frc.robot.commands.TeleopDriveCommand;
 import frc.robot.debug.DebuggingActions;
 import frc.robot.subsystems.SwerveDriveSubsystem;
-import frc.robot.swerve.AllFalconSwerveModule;
+import frc.robot.swerve.SoftwarePIDSwerveModule;
 import frc.robot.utils.XboxControllerExt;
 
 import static frc.robot.Constants.*;
@@ -11,6 +11,8 @@ import static frc.robot.Constants.*;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+import edu.wpi.first.math.controller.PIDController;
 
 public class RobotContainer {
   public static final XboxControllerExt controller = new XboxControllerExt(0);
@@ -29,14 +31,29 @@ public class RobotContainer {
     talonSteerMotor(kSteerMotorPorts[3])
   };
 
-  public static final SwerveDriveSubsystem swerveDriveSubsystem = new SwerveDriveSubsystem(
-    new AllFalconSwerveModule[] {
-      new AllFalconSwerveModule(driveMotors[0], steerMotors[0]),
-      new AllFalconSwerveModule(driveMotors[1], steerMotors[1]),
-      new AllFalconSwerveModule(driveMotors[2], steerMotors[2]),
-      new AllFalconSwerveModule(driveMotors[3], steerMotors[3]),
+  public static final SwerveDriveSubsystem swerveDriveSubsystem;
+  static {
+    SoftwarePIDSwerveModule modules[] = new SoftwarePIDSwerveModule[4];
+    var conf = kSteerMotorConfig;
+    for (int j = 0; j < 4; j++) {
+      // "i" must be final to be accessed from the lambdas
+      // (otherwise there'd be a bug)
+      final int i = j;
+      var pid = new PIDController(conf.kP.get(), conf.kI.get(), conf.kD.get());
+      conf.kP.consume((kP) -> pid.setP(kP));
+      conf.kI.consume((kI) -> pid.setI(kI));
+      conf.kD.consume((kD) -> pid.setD(kD));
+      modules[i] = new SoftwarePIDSwerveModule(
+        driveMotors[i],
+        steerMotors[i],
+        () -> { steerMotors[i].setSelectedSensorPosition(0, 0, 0); },
+        () -> { return (int) steerMotors[i].getSelectedSensorPosition(); },
+        kSteerCountsPerDegree,
+        pid
+      );
     }
-  );
+    swerveDriveSubsystem = new SwerveDriveSubsystem(modules);
+  }
 
   public static final TeleopDriveCommand teleopDriveCommand = new TeleopDriveCommand(controller, swerveDriveSubsystem);
   public static final DebuggingActions debuggingActions = new DebuggingActions(controller, swerveDriveSubsystem);
@@ -54,9 +71,6 @@ public class RobotContainer {
       kSteerMotorConfig.toCtreSlotConfiguration(),
       0, kConfigureMotorTimeout
     );
-    kSteerMotorConfig.kP.consume((kP) -> motor.config_kP(0, kP, kConfigureMotorTimeout));
-    kSteerMotorConfig.kI.consume((kI) -> motor.config_kI(0, kI, kConfigureMotorTimeout));
-    kSteerMotorConfig.kD.consume((kD) -> motor.config_kD(0, kD, kConfigureMotorTimeout));
     return motor;
   }
 
@@ -70,9 +84,6 @@ public class RobotContainer {
       kDriveMotorConfig.toCtreSlotConfiguration(),
       0, kConfigureMotorTimeout
     );
-    kDriveMotorConfig.kP.consume((kP) -> motor.config_kP(0, kP, kConfigureMotorTimeout));
-    kDriveMotorConfig.kI.consume((kI) -> motor.config_kI(0, kI, kConfigureMotorTimeout));
-    kDriveMotorConfig.kD.consume((kD) -> motor.config_kD(0, kD, kConfigureMotorTimeout));
     return motor;
   }
 }
